@@ -66,8 +66,7 @@ https://web.archive.org/web/20170118212350/http://www.fec.gov/finance/disclosure
 - Then print out the output of `glimpse` of your data frame.
 
 ```{r peek-at-data}
-
-
+glimpse(campaign)
 ```
 
 
@@ -81,7 +80,7 @@ The data analysis plan should include a description of:
 - The outcome (dependent, response, Y) variable which must be numerical and  the predictors (independent, explanatory, X) 
 variables you will use to answer your question. **There should be at least two numerical predictors and two categorical predictors. These are bare minimums. **
 
-- Any challenges you foresee in working with the data. Are there too many missing values? Are distributions highly skewed? 
+- Any challenges you foresee in working with the data. Are there too many missing values? Are distributions highly skewed? x
 
 - Very preliminary exploratory data analysis, such as some summary statistics and 
 visualizations of some key variables, along with an explanation on how they help you learn more about your data. **Suggested division of labor: each member of the group is responsible for creating at least one visualization and calculating summaries statistics for at least one variable.** 
