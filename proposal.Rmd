@@ -115,7 +115,7 @@ https://web.archive.org/web/20170118212350/http://www.fec.gov/finance/disclosure
 - Then print out the output of `glimpse` of your data frame.
 
 ```{r peek-at-data}
-
+glimpse(campaign)
 
 ```
 
