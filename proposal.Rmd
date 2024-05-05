@@ -50,8 +50,67 @@ https://web.archive.org/web/20170118212350/http://www.fec.gov/finance/disclosure
 
 | Header          |  Description
 |:----------------|:--------------------------------
-| `name of var`          | description  here
-| `name of var`          | description here
+| `can_id`               | Candidate Id
+| `can_name`             | Candidate Name
+| `can_off`              | Candidate Office
+| `can_off_sta`          | Candidate Office State
+| `can_off_dis`          | Candidate Office District
+| `can_par_aff`          | Candidate Party Affiliation
+| `can_inc_cha_ope_sea`  | Candidate Incumbent Challenger Open Seat
+| `can_cit`              | Candidate City
+| `can_id`               | Candidate Id
+| `can_name`             | Candidate Name
+| `can_off`              | Candidate Office
+| `can_off_sta`          | Candidate Office State
+| `can_off_dis`          | Candidate Office District
+| `can_par_aff`          | Candidate Party Affiliation
+| `can_inc_cha_ope_sea`  | Candidate Incumbent Challenger Open Seat
+| `can_cit`              | Candidate City
+| `can_sta`              | Candidate State
+| `can_zip`              | Candidate Zip
+| `ind_ite_con`          | Individual Itemized Contribution
+| `ind_uni_con`          | Individual Unitemized Contribution
+| `ind_con`              | Individual Contribution
+| `par_com_con`          | Party Committee Contribution
+| `oth_com_con`          | Other Committee Contribution
+| `can_con`              | Candidate Contribution
+| `tot_con`              | Total Contribution
+| `tra_fro_oth_aut_com`  | Transfer from other Authorized Committee
+| `can_loa`              | Candidate Loan
+| `oth_loa`              | Other Loan
+| `tot_loa`              | Total Loan
+| `off_to_ope_exp`       | Offsets to Operating Expenditure
+| `off_to_fun`	       | Offsets to Fundraising	 	 	
+| `off_to_leg_acc`	 | Offsets to Legal Accounting	 	 	
+| `oth_rec`	             | Other Receipts		 	 	
+| `tot_rec`	             | Total Receipts	
+| `ope_exp`	             | Operating Expenditure	
+| `exe_leg_acc_dis`	 | Exempt Legal Accounting Disbursement	 
+| `fun_dis`	             | Fundraising Disbursement	
+| `tra_to_oth_aut_com`   | Transfer to Other Authorized Committee
+| `can_loa_rep`	       | Candidate Loan Repayment		 	 
+| `oth_loa_rep`          | Other Loan Repayment		 	 
+| `tot_loa_rep`	       | Total Loan Repayment	
+| `ind_ref`	             | Individual Refund			 	 
+| `par_com_ref`	       | Party Committee Refund		 	 
+| `oth_com_ref`	       | Other Committee Refund	
+| `tot_con_ref`	       | Total Contribution Refund	
+| `oth_dis`	             | Other Disbursement	
+| `tot_dis`	             | Total Disbursement	
+| `cas_on_han_beg_of_per`| Cash on Hand Beginning of Period	
+| `cas_on_han_clo_of_per`| Cash on Hand Close of Period
+| `net_con`              | Net Contribution
+| `net_ope_exp`          | Net Operating Expenditure
+| `deb_owe_by_com`       | Debt Owed by Committee
+| `deb_owe_to_com`       | Debt Owed to Committee
+| `cov_sta_dat`          | Coverage Start Date
+| `cov_end_dat`          | Coverage End Date
+| `net_con`              | Net Contribution
+| `net_ope_exp`          | Net Operating Expenditure
+| `deb_owe_by_com`       | Debt Owed by Committee
+| `deb_owe_to_com`       | Debt Owed to Committee
+| `cov_sta_dat`          | Coverage Start Date
+| `cov_end_dat`          | Coverage End Date
 
 - Then print out the output of `glimpse` of your data frame.
 
