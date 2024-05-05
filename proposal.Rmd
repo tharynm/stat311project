@@ -1,0 +1,97 @@
+---
+title: "Campaign Financing and its Relation to Election Results"
+subtitle: "DELETE IF NOT USED"
+author: "Vincent Lien, Tharyn McConnell"
+date: "`r Sys.Date()`"
+output:    
+      html_document:
+         toc: yes
+         toc_float: yes
+---
+
+
+```{r setup, include = FALSE}
+#load packages, read in your dataset if external to a package, 
+#and set global options. I have set all code chunks to not echo,
+#and to not print messages or warnings.  If you want to echo a particular code chunk to highlight something, you can do this individually for that code chunk.
+
+
+library(tidyverse)        #umbrella package
+library(janitor)          #for tables 
+knitr::opts_chunk$set( echo = FALSE,    
+                       message = FALSE,
+                       warning = FALSE)
+campaign <- read.csv("CandidateSummaryAction1.csv")
+```
+
+## Introduction
+
+<!--- Delete the following text and write your introduction in its place  --->
+
+This section should introduce the data set and the scientific question. Please be sure to address each of the items listed below.
+
+- Do some independent research on the scientific context and importance of the questions that can be answered with this data and tell us about it. Please be sure to provide complete citations for any sources you consult at the end of the document in a bibliography section.
+
+Over the past decade there has been a continual increase in total spending on political elections. In 2016 alone presidential candidates received and spend approximately $1.5 billion on the election. Congressional candidates also spent and received approximately 1.6 billion dollars (change to make pretty w/ dollar sign) in total. With this increased amount of spending, who is benefitting th emost? In other words we would like to examine whether the amount a political candidate receives and spends correlates with the likelihood of said candidate winning their election. We would also like to see if certain political parties have been receiving more or less than their opponents. Lastly, we would like to analyze if there is any relation with geographic area in which the candidate is campaigning and the amount of campaign funds received and spent.
+
+In 1971 the Federal Election Campaign Act was passed by congress which introduced an act that regulated raising and spending of money in U.S. federal elections. This act and subsequent amendments imposed restrictions on the amount a candidate can receive and restricted the amount an entity could donate. This also mandated the disclosure of such contributions. Most of campaign contributions from businesses or individuals on the large scale are made through political action committees (PACs). As the direct contribution to a campaign candidate is illegal for firms, firms make use of PACs in order to contribute and sway federal elections.
+
+https://www.brennancenter.org/our-work/research-reports/money-politics-101-what-you-need-know-about-campaign-finance-after
+https://scienceexchange.caltech.edu/topics/voting-elections/campaign-funding-finance-explained
+https://www.britannica.com/topic/Federal-Election-Campaign-Act
+
+
+This data contains information for various election candidates and their campaign finances. Recently, especially with news articles revolving around former president Trump, campaign finances has become a hot topic. In this we would like to explore the relationship between election candidates, their campaign finances, and the election results. Specifically we would like to determine if there is a direct correlation between having more funding than an opponent and liklihood of winning an election. We would also like to see what geographic regions tend to receive the greatest amount of campaign contributions. Lastly, we would like to examine the relationship of political party and campaign finances.
+
+- Introduce the dataset. Provide a complete citation for the data, so we know exactly where you found it. You must include URLs for the data/data source.   
+
+-  Give details of who collected the data, how it was collected, who are the individuals in the data, what are the variables, etc. 
+
+We found this data available on Kaggle datasets. The creator of the dataset stated that campaign finance information came directly from FEC.gov and the election results, and vote totals were taken from CNN's election results page. The individuals in this dataset are election candidates for the house of representatives accross the nation for the time period of 1/1/2015 to 10/19/2016.
+
+
+https://www.kaggle.com/datasets/danerbland/electionfinance?resource=download   
+
+https://web.archive.org/web/20170118212350/http://www.fec.gov/finance/disclosure/metadata/metadataforcandidatesummary.shtml
+
+- Create a **code book** of the variables in your data set. Your code book (aka data dictionary) must be a table which gives the name of the variables, a description of it , the class (numeric, categorical ) and the values the variable can take.
+
+### Can we modify our data set by removing some variables that we will not be examining in this? Or is it better to keep everything?
+
+| Header          |  Description
+|:----------------|:--------------------------------
+| `name of var`          | description  here
+| `name of var`          | description here
+
+- Then print out the output of `glimpse` of your data frame.
+
+```{r peek-at-data}
+
+
+```
+
+
+
+## Data Analysis Plan 
+
+<!--- Delete the following text and write your data analysis plan in its place.Create code chunks as you need for your analysis. --->
+
+The data analysis plan should include a description of:
+
+- The outcome (dependent, response, Y) variable which must be numerical and  the predictors (independent, explanatory, X) 
+variables you will use to answer your question. **There should be at least two numerical predictors and two categorical predictors. These are bare minimums. **
+
+- Any challenges you foresee in working with the data. Are there too many missing values? Are distributions highly skewed? 
+
+- Very preliminary exploratory data analysis, such as some summary statistics and 
+visualizations of some key variables, along with an explanation on how they help you learn more about your data. **Suggested division of labor: each member of the group is responsible for creating at least one visualization and calculating summaries statistics for at least one variable.** 
+
+
+
+Please be mindful about introducing in words what you are showing us before just printing off a bunch of output. Figures should be titled, have labels, etc.
+(You can add to these later as you work on your project..)
+ 
+
+## Bibliography
+
+<!--- Delete this section if not used --->
