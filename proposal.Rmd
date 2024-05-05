@@ -21,6 +21,9 @@ knitr::opts_chunk$set( echo = FALSE,
                        message = FALSE,
                        warning = FALSE)
 campaign <- read.csv("CandidateSummaryAction1.csv")
+library(readr)
+campaign <- campaign %>%
+  mutate(total_con = parse_number(campaign$tot_con))
 ```
 
 ## Introduction
@@ -122,7 +125,38 @@ variables you will use to answer your question. **There should be at least two n
 - Very preliminary exploratory data analysis, such as some summary statistics and 
 visualizations of some key variables, along with an explanation on how they help you learn more about your data. **Suggested division of labor: each member of the group is responsible for creating at least one visualization and calculating summaries statistics for at least one variable.** 
 
+The biggest current challenge we have with this data set is that all of the currency values are currently strings. Another challenge will be dealing with outliers. Some candidates received a much higher amount than the majority of candidates skewing the data.
 
+``` {r data-modifying}
+campaign <- campaign %>%
+  mutate(Winner = ifelse(winner == "Y", "Y", "N"))
+# creating regions by states
+campaign <- campaign %>%
+  mutate(Region = if_else(can_sta == "CT" | can_sta == "ME" | can_sta == "MA" | can_sta == "VT" | can_sta == "NH" | can_sta == "RI" | can_sta == "NJ" | can_sta == "NY" | can_sta == "PA", "Northeast", if_else(can_sta == "IL" | can_sta == "IA" | can_sta == "KS" | can_sta == "MN" | can_sta == "MO" | can_sta == "NE" | can_sta == "ND" | can_sta == "SD" | can_sta == "WI" | can_sta == "OH" | can_sta == "MI" | can_sta == "IN", "Midwest", if_else(can_sta == "AK" | can_sta == "AZ" | can_sta == "CA" | can_sta == "CO" | can_sta == "HI" | can_sta == "ID" | can_sta == "MT" | can_sta == "NV" | can_sta == "NM" | can_sta == "OR" | can_sta == "UT" | can_sta == "WA" | can_sta == "WY", "West", "South"))))
+```
+
+``` {r totalconvswinner}
+
+```
+
+``` {r regionvsamount}
+ggplot(data=campaign %>% filter(total_con < 1e+07),
+       mapping = aes(x=total_con, fill = Region)) +
+  geom_boxplot() +
+  labs(title="Total Contributions Received",
+       subtitle="Grouped by State",
+       x="Total Contributions Received ($)") +
+  scale_fill_viridis_d()
+campaign %>%
+  count(total_con >= 1e+07) 
+
+# 28 candidates not included in this example
+    
+```
+
+``` {r partyvsamount}
+
+```
 
 Please be mindful about introducing in words what you are showing us before just printing off a bunch of output. Figures should be titled, have labels, etc.
 (You can add to these later as you work on your project..)
