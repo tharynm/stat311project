@@ -21,32 +21,22 @@ knitr::opts_chunk$set( echo = FALSE,
                        message = FALSE,
                        warning = FALSE)
 campaign <- read.csv("CandidateSummaryAction1.csv")
+library(readr)
+campaign <- campaign %>%
+  mutate(total_con = parse_number(campaign$tot_con))
 ```
 
 ## Introduction
 
-  Over the past decade there has been a continual increase in total spending and focus on political elections. In 2016 alone presidential candidates received and spend approximately \$1.5 billion on the election. Congressional candidates also spent and received approximately \$1.6 billion dollars in total. With this increased amount of spending, who is benefitting the most? In other words we would like to determine if there is a direct correlation between having more funding than an opponent and liklihood of winning an election. We would also like to see what geographic regions tend to receive the greatest amount of campaign contributions. Lastly, we would like to examine the relationship of political party and campaign finances.
+Over the past decade there has been a continual increase in total spending and focus on political elections. In 2016 alone presidential candidates received and spend approximately \$1.5 billion on the election. Congressional candidates also spent and received approximately \$1.6 billion dollars in total. With this increased amount of spending, who is benefitting the most? In other words we would like to determine if there is a direct correlation between having more funding than an opponent and liklihood of winning an election. We would also like to see what geographic regions tend to receive the greatest amount of campaign contributions. Lastly, we would like to examine the relationship of political party and campaign finances.
 
 In 1971 the Federal Election Campaign Act was passed by congress which introduced an act that regulated raising and spending of money in U.S. federal elections. This act and subsequent amendments imposed restrictions on the amount a candidate can receive and restricted the amount an entity could donate. This also mandated the disclosure of such contributions. Most of campaign contributions from businesses or individuals on the large scale are made through political action committees (PACs). As the direct contribution to a campaign candidate is illegal for firms, firms make use of PACs in order to contribute and sway federal elections.
 
-https://www.brennancenter.org/our-work/research-reports/money-politics-101-what-you-need-know-about-campaign-finance-after
-https://scienceexchange.caltech.edu/topics/voting-elections/campaign-funding-finance-explained
-https://www.britannica.com/topic/Federal-Election-Campaign-Act
-
-
 This data contains information for various election candidates and their campaign finances. Recently, especially with news articles revolving around former president Trump, campaign finances has become a hot topic. In this we would like to explore the relationship between election candidates, their campaign finances, and the election results. This data is available on Kaggle datasets. The creator of the dataset stated that campaign finance information came directly from FEC.gov and the election results, and vote totals were taken from CNN's election results page. The individuals in this dataset are election candidates for the house of representatives accross the nation for the time period of 1/1/2015 to 10/19/2016.
-
-- Introduce the dataset. Provide a complete citation for the data, so we know exactly where you found it. You must include URLs for the data/data source.   
-
--  Give details of who collected the data, how it was collected, who are the individuals in the data, what are the variables, etc. 
 
 https://www.kaggle.com/datasets/danerbland/electionfinance?resource=download   
 
-https://web.archive.org/web/20170118212350/http://www.fec.gov/finance/disclosure/metadata/metadataforcandidatesummary.shtml
-
-- Create a **code book** of the variables in your data set. Your code book (aka data dictionary) must be a table which gives the name of the variables, a description of it , the class (numeric, categorical ) and the values the variable can take.
-
-### Can we modify our data set by removing some variables that we will not be examining in this? Or is it better to keep everything?
+## Code Book
 
 | Header          |  Description
 |:----------------|:--------------------------------
@@ -112,10 +102,14 @@ https://web.archive.org/web/20170118212350/http://www.fec.gov/finance/disclosure
 | `cov_sta_dat`          | Coverage Start Date
 | `cov_end_dat`          | Coverage End Date
 
-- Then print out the output of `glimpse` of your data frame.
+## Glimpse of Data
 
 ```{r peek-at-data}
 glimpse(campaign)
+<<<<<<< HEAD
+=======
+
+>>>>>>> ff0fffe3a6bc418b393d6ac89090ed1d0bca0b99
 ```
 
 
@@ -134,7 +128,38 @@ variables you will use to answer your question. **There should be at least two n
 - Very preliminary exploratory data analysis, such as some summary statistics and 
 visualizations of some key variables, along with an explanation on how they help you learn more about your data. **Suggested division of labor: each member of the group is responsible for creating at least one visualization and calculating summaries statistics for at least one variable.** 
 
+The biggest current challenge we have with this data set is that all of the currency values are currently strings. Another challenge will be dealing with outliers. Some candidates received a much higher amount than the majority of candidates skewing the data.
 
+``` {r data-modifying}
+campaign <- campaign %>%
+  mutate(Winner = ifelse(winner == "Y", "Y", "N"))
+# creating regions by states
+campaign <- campaign %>%
+  mutate(Region = if_else(can_sta == "CT" | can_sta == "ME" | can_sta == "MA" | can_sta == "VT" | can_sta == "NH" | can_sta == "RI" | can_sta == "NJ" | can_sta == "NY" | can_sta == "PA", "Northeast", if_else(can_sta == "IL" | can_sta == "IA" | can_sta == "KS" | can_sta == "MN" | can_sta == "MO" | can_sta == "NE" | can_sta == "ND" | can_sta == "SD" | can_sta == "WI" | can_sta == "OH" | can_sta == "MI" | can_sta == "IN", "Midwest", if_else(can_sta == "AK" | can_sta == "AZ" | can_sta == "CA" | can_sta == "CO" | can_sta == "HI" | can_sta == "ID" | can_sta == "MT" | can_sta == "NV" | can_sta == "NM" | can_sta == "OR" | can_sta == "UT" | can_sta == "WA" | can_sta == "WY", "West", "South"))))
+```
+
+``` {r totalconvswinner}
+
+```
+
+``` {r regionvsamount}
+ggplot(data=campaign %>% filter(total_con < 1e+07),
+       mapping = aes(x=total_con, fill = Region)) +
+  geom_boxplot() +
+  labs(title="Total Contributions Received",
+       subtitle="Grouped by State",
+       x="Total Contributions Received ($)") +
+  scale_fill_viridis_d()
+campaign %>%
+  count(total_con >= 1e+07) 
+
+# 28 candidates not included in this example
+    
+```
+
+``` {r partyvsamount}
+
+```
 
 Please be mindful about introducing in words what you are showing us before just printing off a bunch of output. Figures should be titled, have labels, etc.
 (You can add to these later as you work on your project..)
@@ -142,6 +167,10 @@ Please be mindful about introducing in words what you are showing us before just
 
 ## Bibliography
 
-“Money in Politics 101: What You Need to Know about Campaign Finance after Citizens United.” Brennan Center for        Justice, 28 Sept. 2012, www.brennancenter.org/our-work/research-reports/money-politics-101-what-you-need-know-     about-campaign-finance-after. 
+“Money in Politics 101: What You Need to Know about Campaign Finance after Citizens United.” Brennan Center for Justice, 28 Sept. 2012, www.brennancenter.org/our-work/research-reports/money-politics-101-what-you-need-know-about-campaign-finance-after. 
 
 “How Does Campaign Funding Work?” Caltech Science Exchange, scienceexchange.caltech.edu/topics/voting-elections/campaign-funding-finance-explained. Accessed 5 May 2024. 
+
+Jones, Clifford A. “Federal Election Campaign Act.” Encyclopædia Britannica, Encyclopædia Britannica, inc., www.britannica.com/topic/Federal-Election-Campaign-Act. Accessed 5 May 2024. 
+
+“Metadata Description.” Metadata for Candidate Summary, Federal Election Commission , 17 Jan. 2017, web.archive.org/web/20170118212350/www.fec.gov/finance/disclosure/metadata/metadataforcandidatesummary.shtml. 
