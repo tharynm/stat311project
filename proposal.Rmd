@@ -24,6 +24,7 @@ campaign <- read.csv("CandidateSummaryAction1.csv")
 library(readr)
 campaign <- campaign %>%
   mutate(total_con = parse_number(campaign$tot_con))
+library(scales)
 ```
 
 ## Introduction
@@ -106,10 +107,6 @@ https://www.kaggle.com/datasets/danerbland/electionfinance?resource=download
 
 ```{r peek-at-data}
 glimpse(campaign)
-<<<<<<< HEAD
-=======
-
->>>>>>> ff0fffe3a6bc418b393d6ac89090ed1d0bca0b99
 ```
 
 
@@ -140,6 +137,20 @@ campaign <- campaign %>%
 
 ``` {r totalconvswinner}
 
+```
+
+``` {r convsvotes, warning=FALSE}
+ggplot(campaign,
+       mapping = aes(total_con, votes, color=can_par_aff)) +
+  geom_point() +
+  scale_x_continuous(labels = label_number(), 
+                     limits = c(NA, 7500000)) +
+  scale_color_manual(values = c("DEM" = "blue",
+                                "REP" = "red",
+                                "Other" = "grey50")) +
+  labs(title = "Total Contributions Received ($) vs. Votes Received",
+       x = "Total Contribution ($)",
+       y = "Votes Received")
 ```
 
 ``` {r regionvsamount}
