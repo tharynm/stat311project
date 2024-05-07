@@ -24,7 +24,6 @@ campaign <- read.csv("CandidateSummaryAction1.csv")
 library(readr)
 campaign <- campaign %>%
   mutate(total_con = parse_number(campaign$tot_con))
-library(scales)
 ```
 
 ## Introduction
@@ -37,7 +36,7 @@ This data contains information for various election candidates and their campaig
 
 https://www.kaggle.com/datasets/danerbland/electionfinance?resource=download   
 
-#### Code Book
+## Code Book
 
 | Header          |  Description
 |:----------------|:--------------------------------
@@ -103,27 +102,16 @@ https://www.kaggle.com/datasets/danerbland/electionfinance?resource=download
 | `cov_sta_dat`          | Coverage Start Date
 | `cov_end_dat`          | Coverage End Date
 
-#### Glimpse of Data
+## Glimpse of Data
 
 ```{r peek-at-data}
 glimpse(campaign)
+
 ```
 
 
 
 ## Data Analysis Plan 
-
-<!--- Delete the following text and write your data analysis plan in its place.Create code chunks as you need for your analysis. --->
-
-The data analysis plan should include a description of:
-
-- The outcome (dependent, response, Y) variable which must be numerical and  the predictors (independent, explanatory, X) 
-variables you will use to answer your question. **There should be at least two numerical predictors and two categorical predictors. These are bare minimums. **
-
-- Any challenges you foresee in working with the data. Are there too many missing values? Are distributions highly skewed? x
-
-- Very preliminary exploratory data analysis, such as some summary statistics and 
-visualizations of some key variables, along with an explanation on how they help you learn more about your data. **Suggested division of labor: each member of the group is responsible for creating at least one visualization and calculating summaries statistics for at least one variable.** 
 
 #### Outcome Variable
 Our primary numerical outcome variable will be **votes** (`votes`). This is the dependent variable of the study, and serves as a measure of success of each candidate in their respective elections.
@@ -136,20 +124,15 @@ Our primary numerical outcome variable will be **votes** (`votes`). This is the 
 
 
 #### Challenges
-The biggest current challenge we have with this data set is that all of the currency values are currently strings, meaning we need to convert them to numeric types. Another challenge will be dealing with some very extreme outliers, which can heavily influence the results of stats models. Some candidates received a much higher amount than the majority of candidates skewing the data.
+The biggest current challenge we have with this data set is that all of the currency values are currently strings, meaning we need to convert them to numeric types. Another challenge will be dealing with some very extreme outliers, which can heavily influence the results of stats models. Some candidates received a much higher amount than the majority of candidates skewing the data. Another challenge will be in figuring out which candidates ran against each other in order to have a meaningful comparison between campaign candidate funds and election results.
 
 
-#### Exploratory Data Analysis
 ``` {r data-modifying}
 campaign <- campaign %>%
   mutate(Winner = ifelse(winner == "Y", "Y", "N"))
 # creating regions by states
 campaign <- campaign %>%
   mutate(Region = if_else(can_sta == "CT" | can_sta == "ME" | can_sta == "MA" | can_sta == "VT" | can_sta == "NH" | can_sta == "RI" | can_sta == "NJ" | can_sta == "NY" | can_sta == "PA", "Northeast", if_else(can_sta == "IL" | can_sta == "IA" | can_sta == "KS" | can_sta == "MN" | can_sta == "MO" | can_sta == "NE" | can_sta == "ND" | can_sta == "SD" | can_sta == "WI" | can_sta == "OH" | can_sta == "MI" | can_sta == "IN", "Midwest", if_else(can_sta == "AK" | can_sta == "AZ" | can_sta == "CA" | can_sta == "CO" | can_sta == "HI" | can_sta == "ID" | can_sta == "MT" | can_sta == "NV" | can_sta == "NM" | can_sta == "OR" | can_sta == "UT" | can_sta == "WA" | can_sta == "WY", "West", "South"))))
-```
-
-``` {r totalconvswinner}
-
 ```
 
 ``` {r convsvotes, warning=FALSE}
@@ -168,30 +151,34 @@ ggplot(campaign,
 
 This visualization of two key variables, votes received and total contribution, along with the colorization of the two major parties, provides us with an initial glance into the spread and relationship of financial resources in a campaign and its coinciding success in elections. Using this, we can visually observe patterns and anomalies between these two variables.
 
-``` {r regionvsamount}
-ggplot(data=campaign %>% filter(total_con < 1e+07),
-       mapping = aes(x=total_con, fill = Region)) +
-  geom_boxplot() +
-  labs(title="Total Contributions Received",
-       subtitle="Grouped by State",
-       x="Total Contributions Received ($)") +
-  scale_fill_viridis_d()
+```{r region-outlier, warning=False}
 campaign %>%
   count(total_con >= 1e+07) 
 
 # 28 candidates not included in this example
+```
+
+``` {r regionvsamount, warning=FALSE}
+ggplot(data=campaign %>% filter(total_con < 1e+07),
+       mapping = aes(x=total_con, y= votes, color = Region)) +
+  geom_point() +
+  labs(title="Total Contributions Received",
+       subtitle="Grouped by State",
+       x="Total Contributions Received ($)",
+       y= "Votes Received") +
+  scale_fill_viridis_d()
     
 ```
+This visualization shows the amount of total contributions a candidate has received versus the amount of votes they received and color coded by geographic region. This provides us with an initial glance into which geographic regions tend to receive more political contributions compared to other regions. This was created by getting rid of some of the largest outliers (28 candidates excluded). The challenge with this will be dealing with outliers in order to extrapolate any meaningful trends. It might be interesting to explore if there is a correlation with higher spending in a region and whether the candidate won their election.
 
 ``` {r partyvsamount}
 
 ```
 
-Please be mindful about introducing in words what you are showing us before just printing off a bunch of output. Figures should be titled, have labels, etc.
-(You can add to these later as you work on your project..)
  
 
 ## Bibliography
+Formatting needs to be fixed up here
 
 “Money in Politics 101: What You Need to Know about Campaign Finance after Citizens United.” Brennan Center for Justice, 28 Sept. 2012, www.brennancenter.org/our-work/research-reports/money-politics-101-what-you-need-know-about-campaign-finance-after. 
 
