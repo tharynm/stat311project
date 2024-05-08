@@ -139,8 +139,7 @@ campaign <- campaign %>%
 ggplot(campaign,
        mapping = aes(total_con, votes, color=can_par_aff)) +
   geom_point() +
-  scale_x_continuous(labels = label_number(), 
-                     limits = c(NA, 7500000)) +
+  scale_x_continuous(limits = c(NA, 7500000)) +
   scale_color_manual(values = c("DEM" = "blue",
                                 "REP" = "red",
                                 "Other" = "grey50")) +
@@ -151,12 +150,22 @@ ggplot(campaign,
 
 This visualization of two key variables, votes received and total contribution, along with the colorization of the two major parties, provides us with an initial glance into the spread and relationship of financial resources in a campaign and its coinciding success in elections. Using this, we can visually observe patterns and anomalies between these two variables.
 
-```{r region-outlier, warning=False}
+```{r total_con-summary, include=FALSE, echo=FALSE, warning=FALSE}
 campaign %>%
-  count(total_con >= 1e+07) 
-
-# 28 candidates not included in this example
+  count(total_con >= 1e07)
+#28 outliers will not be included in below graph
 ```
+
+```{r total_con-summary, echo=FALSE, warning=FALSE}
+
+campaign %>%
+  summarise(median_con = median(total_con, na.rm=TRUE),
+                  q25 = quantile(total_con, p = 0.25, na.rm=TRUE),
+                  q75 = quantile(total_con, p = 0.75, na.rm=TRUE), 
+            mean_con = mean(total_con, na.rm=TRUE), 
+            min_con = min(total_con, na.rm=TRUE),             max_con = max(total_con, na.rm=TRUE))
+```
+For all candidates in this data set, the overall median total contributions received is \$116,492.6, the mean is \$1,395,240, the minimum total contributions received was \$2, and the maximum received was \$361,329,562. The incredibly large range will explain the large difference in median contributions and mean contributions received.
 
 ``` {r regionvsamount, warning=FALSE}
 ggplot(data=campaign %>% filter(total_con < 1e+07),
@@ -171,7 +180,7 @@ ggplot(data=campaign %>% filter(total_con < 1e+07),
 ```
 This visualization shows the amount of total contributions a candidate has received versus the amount of votes they received and color coded by geographic region. This provides us with an initial glance into which geographic regions tend to receive more political contributions compared to other regions. This was created by getting rid of some of the largest outliers (28 candidates excluded). The challenge with this will be dealing with outliers in order to extrapolate any meaningful trends. It might be interesting to explore if there is a correlation with higher spending in a region and whether the candidate won their election.
 
-``` {r candidate_party_vs_party_contribution}
+```{r party_contribution}
 campaign$par_com_con <- parse_number(campaign$par_com_con)
 
 campaign%>%
@@ -186,17 +195,18 @@ ggplot(data = campaign%>% filter(par_com_con < 40000, can_par_aff == "DEM" | can
        subtitle = "Top 5 parties by vote",
        x = "Candidate Party Affiliation",
        y = "Party Committee Contribution")
+  
 ```
+
 
  
 
 ## Bibliography
-Formatting needs to be fixed up here
 
-“Money in Politics 101: What You Need to Know about Campaign Finance after Citizens United.” Brennan Center for Justice, 28 Sept. 2012, www.brennancenter.org/our-work/research-reports/money-politics-101-what-you-need-know-about-campaign-finance-after. 
+1. “Money in Politics 101: What You Need to Know about Campaign Finance after Citizens United.” Brennan Center for Justice, 28 Sept. 2012, www.brennancenter.org/our-work/research-reports/money-politics-101-what-you-need-know-about-campaign-finance-after. 
 
-“How Does Campaign Funding Work?” Caltech Science Exchange, scienceexchange.caltech.edu/topics/voting-elections/campaign-funding-finance-explained. Accessed 5 May 2024. 
+2. “How Does Campaign Funding Work?” Caltech Science Exchange, scienceexchange.caltech.edu/topics/voting-elections/campaign-funding-finance-explained. Accessed 5 May 2024. 
 
-Jones, Clifford A. “Federal Election Campaign Act.” Encyclopædia Britannica, Encyclopædia Britannica, inc., www.britannica.com/topic/Federal-Election-Campaign-Act. Accessed 5 May 2024. 
+3. Jones, Clifford A. “Federal Election Campaign Act.” Encyclopædia Britannica, Encyclopædia Britannica, inc., www.britannica.com/topic/Federal-Election-Campaign-Act. Accessed 5 May 2024. 
 
-“Metadata Description.” Metadata for Candidate Summary, Federal Election Commission , 17 Jan. 2017, web.archive.org/web/20170118212350/www.fec.gov/finance/disclosure/metadata/metadataforcandidatesummary.shtml. 
+4. “Metadata Description.” Metadata for Candidate Summary, Federal Election Commission , 17 Jan. 2017, web.archive.org/web/20170118212350/www.fec.gov/finance/disclosure/metadata/metadataforcandidatesummary.shtml. 
