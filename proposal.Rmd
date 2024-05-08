@@ -38,69 +38,57 @@ https://www.kaggle.com/datasets/danerbland/electionfinance?resource=download
 
 ## Code Book
 
-| Header          |  Description
-|:----------------|:--------------------------------
-| `can_id`               | Candidate Id
-| `can_name`             | Candidate Name
-| `can_off`              | Candidate Office
-| `can_off_sta`          | Candidate Office State
-| `can_off_dis`          | Candidate Office District
-| `can_par_aff`          | Candidate Party Affiliation
-| `can_inc_cha_ope_sea`  | Candidate Incumbent Challenger Open Seat
-| `can_cit`              | Candidate City
-| `can_id`               | Candidate Id
-| `can_name`             | Candidate Name
-| `can_off`              | Candidate Office
-| `can_off_sta`          | Candidate Office State
-| `can_off_dis`          | Candidate Office District
-| `can_par_aff`          | Candidate Party Affiliation
-| `can_inc_cha_ope_sea`  | Candidate Incumbent Challenger Open Seat
-| `can_cit`              | Candidate City
-| `can_sta`              | Candidate State
-| `can_zip`              | Candidate Zip
-| `ind_ite_con`          | Individual Itemized Contribution
-| `ind_uni_con`          | Individual Unitemized Contribution
-| `ind_con`              | Individual Contribution
-| `par_com_con`          | Party Committee Contribution
-| `oth_com_con`          | Other Committee Contribution
-| `can_con`              | Candidate Contribution
-| `tot_con`              | Total Contribution
-| `tra_fro_oth_aut_com`  | Transfer from other Authorized Committee
-| `can_loa`              | Candidate Loan
-| `oth_loa`              | Other Loan
-| `tot_loa`              | Total Loan
-| `off_to_ope_exp`       | Offsets to Operating Expenditure
-| `off_to_fun`	       | Offsets to Fundraising	 	 	
-| `off_to_leg_acc`	 | Offsets to Legal Accounting	 	 	
-| `oth_rec`	             | Other Receipts		 	 	
-| `tot_rec`	             | Total Receipts	
-| `ope_exp`	             | Operating Expenditure	
-| `exe_leg_acc_dis`	 | Exempt Legal Accounting Disbursement	 
-| `fun_dis`	             | Fundraising Disbursement	
-| `tra_to_oth_aut_com`   | Transfer to Other Authorized Committee
-| `can_loa_rep`	       | Candidate Loan Repayment		 	 
-| `oth_loa_rep`          | Other Loan Repayment		 	 
-| `tot_loa_rep`	       | Total Loan Repayment	
-| `ind_ref`	             | Individual Refund			 	 
-| `par_com_ref`	       | Party Committee Refund		 	 
-| `oth_com_ref`	       | Other Committee Refund	
-| `tot_con_ref`	       | Total Contribution Refund	
-| `oth_dis`	             | Other Disbursement	
-| `tot_dis`	             | Total Disbursement	
-| `cas_on_han_beg_of_per`| Cash on Hand Beginning of Period	
-| `cas_on_han_clo_of_per`| Cash on Hand Close of Period
-| `net_con`              | Net Contribution
-| `net_ope_exp`          | Net Operating Expenditure
-| `deb_owe_by_com`       | Debt Owed by Committee
-| `deb_owe_to_com`       | Debt Owed to Committee
-| `cov_sta_dat`          | Coverage Start Date
-| `cov_end_dat`          | Coverage End Date
-| `net_con`              | Net Contribution
-| `net_ope_exp`          | Net Operating Expenditure
-| `deb_owe_by_com`       | Debt Owed by Committee
-| `deb_owe_to_com`       | Debt Owed to Committee
-| `cov_sta_dat`          | Coverage Start Date
-| `cov_end_dat`          | Coverage End Date
+| Header          |  Description                    | Class                  | Data Type                  
+|:----------------|:--------------------------------|:------------------------|:-----------------------
+| `can_id`               | Candidate Id                            | Categorical | H=House, S=Senate, P=Presidential, e.g., "H2GA12121"
+| `can_name`             | Candidate Name                          | Categorical | Full names, e.g., "ALLEN, RICHARD W"
+| `can_off`              | Candidate Office                        | Categorical | "H" (House), "S" (Senate), "P" (President)
+| `can_off_sta`          | Candidate Office State                  | Categorical | US State Abbreviations, e.g., "GA"
+| `can_off_dis`          | Candidate Office District               | Categorical | District numbers, e.g., 12
+| `can_par_aff`          | Candidate Party Affiliation             | Categorical | "DEM", "REP", etc.
+| `can_inc_cha_ope_sea`  | Candidate Incumbent Challenger Open Seat | Categorical | "INCUMBENT", "CHALLENGER", "OPEN"
+| `can_cit`              | Candidate City                          | Categorical | City names, e.g., "AUGUSTA"
+| `can_sta`              | Candidate State | Categorical | US State Abbreviations, e.g., "GA"
+| `can_zip`              | Candidate Zip | Categorical | ZIP codes, e.g., 30904
+| `ind_ite_con`          | Individual Itemized Contribution | Numerical | Dollar amount, e.g., $500,000.00
+| `ind_uni_con`          | Individual Unitemized Contribution | Numerical | Dollar amount
+| `ind_con`              | Individual Contribution | Numerical | Dollar amount
+| `par_com_con`          | Party Committee Contribution | Numerical | Dollar amount
+| `oth_com_con`          | Other Committee Contribution | Numerical | Dollar amount
+| `can_con`              | Candidate Contribution | Numerical | Dollar amount
+| `tot_con`              | Total Contribution | Numerical | Dollar amount
+| `tra_fro_oth_aut_com`  | Transfer from other Authorized Committee |Numerical | Dollar amount
+| `can_loa`              | Candidate Loan | Numerical | Dollar amount
+| `oth_loa`              | Other Loan | Numerical | Dollar amount
+| `tot_loa`              | Total Loan | Numerical | Dollar amount
+| `off_to_ope_exp`       | Offsets to Operating Expenditure | Numerical | Dollar amount
+| `off_to_fun`	       | Offsets to Fundraising	 	 	 | Numerical | Dollar amount
+| `off_to_leg_acc`	 | Offsets to Legal Accounting	 	 	 | Numerical | Dollar amount
+| `oth_rec`	             | Other Receipts		 	 	 | Numerical | Dollar amount
+| `tot_rec`	             | Total Receipts	 | Numerical | Dollar amount
+| `ope_exp`	             | Operating Expenditure	 | Numerical | Dollar amount
+| `exe_leg_acc_dis`	 | Exempt Legal Accounting Disbursement	  | Numerical | Dollar amount
+| `fun_dis`	             | Fundraising Disbursement	 | Numerical | Dollar amount
+| `tra_to_oth_aut_com`   | Transfer to Other Authorized Committee | Numerical | Dollar amount
+| `can_loa_rep`	       | Candidate Loan Repayment		 	  | Numerical | Dollar amount
+| `oth_loa_rep`          | Other Loan Repayment		 	  | Numerical | Dollar amount
+| `tot_loa_rep`	       | Total Loan Repayment	 | Numerical | Dollar amount
+| `ind_ref`	             | Individual Refund			  | Numerical | Dollar amount
+| `par_com_ref`	       | Party Committee Refund		 	  | Numerical | Dollar amount
+| `oth_com_ref`	       | Other Committee Refund	 | Numerical | Dollar amount
+| `tot_con_ref`	       | Total Contribution Refund	 | Numerical | Dollar amount
+| `oth_dis`	             | Other Disbursement	 | Numerical | Dollar amount
+| `tot_dis`	             | Total Disbursement	 | Numerical | Dollar amount
+| `cas_on_han_beg_of_per`| Cash on Hand Beginning of Period	 | Numerical | Dollar amount
+| `cas_on_han_clo_of_per`| Cash on Hand Close of Period | Numerical | Dollar amount
+| `net_con`              | Net Contribution | Numerical | Dollar amount
+| `net_ope_exp`          | Net Operating Expenditure | Numerical | Dollar amount
+| `deb_owe_by_com`       | Debt Owed by Committee | Numerical | Dollar amount
+| `deb_owe_to_com`       | Debt Owed to Committee | Numerical | Dollar amount
+| `cov_sta_dat`          | Coverage Start Date | Categorical | Date, e.g., "1/1/2015"
+| `cov_end_dat`          | Coverage End Date | Categorical | Date, e.g., "1/1/2015"
+| `winner`          | Election Winner Indicator | Categorical | "Y" if winner
+| `votes`          | Number of Votes Received | Categorical | Number, e.g., 158708
 
 ## Glimpse of Data
 
@@ -137,21 +125,21 @@ campaign <- campaign %>%
 
 ``` {r convsvotes, warning=FALSE}
 ggplot(campaign,
-       mapping = aes(total_con, votes, color=can_par_aff)) +
+         mapping = aes(total_con, votes, color= can_par_aff)) +
   geom_point() +
-  scale_x_continuous(labels = label_number(), 
-                     limits = c(NA, 7500000)) +
+  scale_x_continuous(limits = c(NA, 7500000)) +
   scale_color_manual(values = c("DEM" = "blue",
                                 "REP" = "red",
                                 "Other" = "grey50")) +
   labs(title = "Total Contributions Received ($) vs. Votes Received",
        x = "Total Contribution ($)",
-       y = "Votes Received")
+       y = "Votes Received") +
+  guides(color=guide_legend("Political Party"))
 ```
 
 This visualization of two key variables, votes received and total contribution, along with the colorization of the two major parties, provides us with an initial glance into the spread and relationship of financial resources in a campaign and its coinciding success in elections. Using this, we can visually observe patterns and anomalies between these two variables.
 
-```{r region-outlier, warning=False}
+```{r region-outlier, warning=FALSE}
 campaign %>%
   count(total_con >= 1e+07) 
 
@@ -187,7 +175,6 @@ ggplot(data = campaign%>% filter(par_com_con < 40000, can_par_aff == "DEM" | can
        x = "Candidate Party Affiliation",
        y = "Party Committee Contribution")
 ```
-
  
 
 ## Bibliography
