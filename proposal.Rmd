@@ -197,7 +197,7 @@ ggplot(data = campaign%>% filter(par_com_con < 40000, can_par_aff == "DEM" | can
        y = "Party Committee Contribution")
   
 ```
-
+This visualization shows the amount of Party Committee contributions a candidate received in relation to the candidate's party affiliation. This provides us with an initial glance into which political parties tend to receive more party committee funds contributions compared to other parties. This was created by excluding the 20 other relatively minor political parties. The challenge with this will be dealing with outliers in order to extrapolate any meaningful trends. It might be interesting to explore if there is a correlation with different party spending and how the party in question fair against other competitors.
 
  
 
