@@ -135,6 +135,18 @@ campaign <- campaign %>%
   mutate(Region = if_else(can_sta == "CT" | can_sta == "ME" | can_sta == "MA" | can_sta == "VT" | can_sta == "NH" | can_sta == "RI" | can_sta == "NJ" | can_sta == "NY" | can_sta == "PA", "Northeast", if_else(can_sta == "IL" | can_sta == "IA" | can_sta == "KS" | can_sta == "MN" | can_sta == "MO" | can_sta == "NE" | can_sta == "ND" | can_sta == "SD" | can_sta == "WI" | can_sta == "OH" | can_sta == "MI" | can_sta == "IN", "Midwest", if_else(can_sta == "AK" | can_sta == "AZ" | can_sta == "CA" | can_sta == "CO" | can_sta == "HI" | can_sta == "ID" | can_sta == "MT" | can_sta == "NV" | can_sta == "NM" | can_sta == "OR" | can_sta == "UT" | can_sta == "WA" | can_sta == "WY", "West", "South"))))
 ```
 
+#### Initial Data Analysis
+```{r totalcon-summary, include = FALSE, echo=FALSE, warning=FALSE}
+
+campaign %>%
+  summarise(median_con = median(total_con, na.rm=TRUE),
+                  q25 = quantile(total_con, p = 0.25, na.rm=TRUE),
+                  q75 = quantile(total_con, p = 0.75, na.rm=TRUE), 
+            mean_con = mean(total_con, na.rm=TRUE), 
+            min_con = min(total_con, na.rm=TRUE),             max_con = max(total_con, na.rm=TRUE))
+```
+For all candidates in this data set, the overall median total contributions received is \$116,492.6, the mean is \$1,395,240, the minimum total contributions received was \$2, and the maximum received was \$361,329,562. The incredibly large range will explain the large difference in median contributions and mean contributions received.
+
 ``` {r convsvotes, warning=FALSE}
 ggplot(campaign,
        mapping = aes(total_con, votes, color=can_par_aff)) +
@@ -155,17 +167,6 @@ campaign %>%
   count(total_con >= 1e07)
 #28 outliers will not be included in below graph
 ```
-
-```{r total_con-summary, echo=FALSE, warning=FALSE}
-
-campaign %>%
-  summarise(median_con = median(total_con, na.rm=TRUE),
-                  q25 = quantile(total_con, p = 0.25, na.rm=TRUE),
-                  q75 = quantile(total_con, p = 0.75, na.rm=TRUE), 
-            mean_con = mean(total_con, na.rm=TRUE), 
-            min_con = min(total_con, na.rm=TRUE),             max_con = max(total_con, na.rm=TRUE))
-```
-For all candidates in this data set, the overall median total contributions received is \$116,492.6, the mean is \$1,395,240, the minimum total contributions received was \$2, and the maximum received was \$361,329,562. The incredibly large range will explain the large difference in median contributions and mean contributions received.
 
 ``` {r regionvsamount, warning=FALSE}
 ggplot(data=campaign %>% filter(total_con < 1e+07),
